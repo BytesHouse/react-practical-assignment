@@ -1,19 +1,23 @@
-import {useEffect} from 'react';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { PrivateRoute } from "./components";
+import { Login, ApplicationPage, Error } from "./pages";
 
 function App() {
-
-  useEffect(() => {
-    // TEST API, it might be removed
-    fetch('http://localhost:8080/live').then(res => res.json()).then(res => {
-      console.log('API CONNECTION IS OK');
-    }).catch((e) => console.error('API CONNECTION FAILED, PLEASE CHECK SERVER APP AND TRY AGAIN'))
-  }, []);
-
   return (
-    <div className="App">
-      TASK IMPLEMENTATION HERE
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="posts"
+          element={
+            <PrivateRoute>
+              <ApplicationPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route path="/" element={<Login />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
