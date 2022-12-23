@@ -4,5 +4,14 @@ import Logo from "./Logo/Logo";
 import Header from "./Header/Header";
 import SearchSection from "./SearchSection/SearchSection";
 import DisplayPosts from "./DisplayPosts/DisplayPosts";
+import Footer from "./Footer/Footer";
 
-export { PrivateRoute, SignInForm, Logo, Header, SearchSection, DisplayPosts };
+export {
+  PrivateRoute,
+  SignInForm,
+  Logo,
+  Header,
+  SearchSection,
+  DisplayPosts,
+  Footer,
+};
