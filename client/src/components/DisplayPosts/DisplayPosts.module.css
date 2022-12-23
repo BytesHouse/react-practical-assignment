@@ -1,14 +1,16 @@
 .section {
-    width: 100%;
-    background-color: white;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-content: space-between;
-    gap: 20px;
+  width: 100%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: space-between;
+  gap: 20px;
+  box-shadow: 0 1px 7px #00000057;
 }
 @media screen and (max-width: 968px) {
-    .section {
-        grid-template-columns: minmax(320px, 1fr);
-    }
+  .section {
+    grid-template-columns: minmax(320px, 1fr);
+  }
 }
