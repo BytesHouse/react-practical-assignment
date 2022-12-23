@@ -1,23 +1,8 @@
-const base = process.env.API;
+const base = "http://localhost:8080/";
 
-const request = async (url, data, token) => {
-  const headersForToken = token
-    ? {
-        Authorization: `Bearer ${token}`,
-      }
-    : {};
-  const headerForMultiPart =
-    typeof data.body === "string"
-      ? {
-          "Content-Type": "application/json;charset=utf-8",
-        }
-      : {};
+const request = async (url, data) => {
   const response = await fetch(url, {
     ...data,
-    headers: {
-      ...headersForToken,
-      ...headerForMultiPart,
-    },
   });
   if (response.ok) {
     if (response.headers.get("Content-Length") === "0") {
@@ -36,16 +21,14 @@ const request = async (url, data, token) => {
   throw new Error(`status: ${response.status}`);
 };
 
-export const get = (url, token) =>
-  request(`${base}${url}`, { method: "GET" }, token);
+export const get = (url) => request(`${base}${url}`, { method: "GET" });
 
-export function post(url, body, token) {
-  return request(`${url}`, { method: "POST", body }, token);
+export function post(url, body) {
+  return request(`${url}`, { method: "POST", body });
 }
 
-export const remove = (url, token) =>
-  request(`${base}${url}`, { method: "DELETE" }, token);
+export const remove = (url) => request(`${base}${url}`, { method: "DELETE" });
 
-export function put(url, body, token) {
-  return request(`${base}${url}`, { method: "PUT", body }, token);
+export function put(url, body) {
+  return request(`${base}${url}`, { method: "PUT", body });
 }

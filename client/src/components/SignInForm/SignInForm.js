@@ -20,7 +20,7 @@ const SignInForm = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser("test"));
+    dispatch(loginUser(values));
     navigate("/posts");
   };
   return (

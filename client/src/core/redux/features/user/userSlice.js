@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getUserFromLocalStorage,
   addUserToLocalStorage,
+  deleteUserFromLocalStorage,
 } from "../../../lib/utils/localStorage";
 
 const initialState = {
@@ -20,8 +21,11 @@ const userSlice = createSlice({
       state.user = payload;
       addUserToLocalStorage(payload);
     },
+    logOutUser: (state) => {
+      deleteUserFromLocalStorage();
+    },
   },
 });
 
-export const { loginUser } = userSlice.actions;
+export const { loginUser, logOutUser } = userSlice.actions;
 export default userSlice.reducer;

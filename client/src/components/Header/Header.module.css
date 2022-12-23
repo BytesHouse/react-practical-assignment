@@ -1,0 +1,14 @@
+.header {
+    background-color: #424245;
+    padding: 5px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.userWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    gap: 25px;
+}
