@@ -1,0 +1,30 @@
+.wrap {
+    position: relative;
+    background-image: url('../../assets/images/background.jpg');
+    background-size: cover;
+    height: 100vh;
+}
+.blur {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    display: grid;
+}
+
+
+@media screen and (min-width: 1280px) {
+    .blur {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 0 32px;
+    }
+    .logo {
+        display: block;
+        font-size: 42px;
+        color: white;
+        grid-column: 3/4;
+        align-self: center;
+    }
+    
+}
+
+
