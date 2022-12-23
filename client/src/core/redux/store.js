@@ -8,7 +8,3 @@ export const store = configureStore({
     posts: postsSlice,
   },
 });
-
-export const store = configureStore({
-  reducer: {},
-});
