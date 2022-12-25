@@ -1,23 +1,54 @@
 .post {
   height: 350px;
-  padding: 10px;
+  padding: 7px;
   border: 1px solid rgba(117, 108, 108, 0.333);
-  border-radius: 30px;
+  border-radius: 30px 0px 30px 0px;
   box-shadow: 0 1px 7px #00000057;
   cursor: pointer;
   transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .post:hover {
   box-shadow: 0 1px 1px #00000057;
 }
 
-.title {
+.title_style {
   text-align: center;
   font-size: 24px;
 }
 .image {
   padding: 5px;
+  height: 70%;
+  border-radius: 15px;
 }
 .comment {
+}
+.usersActions {
+  display: flex;
+  justify-content: space-between;
+  
+}
+.content {
+  margin-top: auto;
+}
+.author {
+  font-weight: bold;
+}
+.edit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post:hover .iconsWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.iconsWrapper {
+  width: 100px;
+  display: none;
+  justify-content: space-between;
+  margin-right: 15px;
 }

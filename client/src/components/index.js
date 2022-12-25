@@ -5,6 +5,7 @@ import Header from "./Header/Header";
 import SearchSection from "./SearchSection/SearchSection";
 import DisplayPosts from "./DisplayPosts/DisplayPosts";
 import Footer from "./Footer/Footer";
+import Popup from "./Popup/Popup";
 
 export {
   PrivateRoute,
@@ -14,4 +15,5 @@ export {
   SearchSection,
   DisplayPosts,
   Footer,
+  Popup,
 };

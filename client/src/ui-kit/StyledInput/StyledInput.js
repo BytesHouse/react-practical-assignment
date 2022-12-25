@@ -1,5 +1,16 @@
 import styles from "./StyledInput.module.css";
-const StyledInput = ({ value, id, type, text, req, min, max, onChange }) => {
+const StyledInput = ({
+  value,
+  id,
+  type,
+  text,
+  req,
+  min,
+  max,
+  onChange,
+  accept,
+  name,
+}) => {
   const { inp, label } = styles;
   return (
     <>
@@ -17,6 +28,8 @@ const StyledInput = ({ value, id, type, text, req, min, max, onChange }) => {
         required
         minLength={min}
         maxLength={max}
+        accept={accept}
+        name={name}
       ></input>
     </>
   );

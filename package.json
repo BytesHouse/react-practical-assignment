@@ -20,5 +20,6 @@
   },
   "homepage": "https://github.com/serjio1905/interview_task#readme",
   "dependencies": {
+    "react-toastify": "^9.1.1"
   }
 }

@@ -1,6 +1,7 @@
 .dashboard {
     background-color: whitesmoke;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
 }
 .wrap {
     max-width: 1180px;

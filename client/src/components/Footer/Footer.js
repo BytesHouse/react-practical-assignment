@@ -30,7 +30,7 @@ const Footer = ({ itemsPerPage = 3 }) => {
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={pageCount}
-        previousLabel="< previous"
+        previousLabel="< prev"
         renderOnZeroPageCount={null}
       />
     </footer>

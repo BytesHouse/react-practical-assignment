@@ -1,3 +1,9 @@
 .section {
-    margin-bottom: 45px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+.section button {
+    width: 150px;
+    margin-left: 15px;
 }

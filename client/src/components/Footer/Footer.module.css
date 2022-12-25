@@ -1,8 +1,8 @@
 .footer {
-  position: absolute;
   width: 100%;
   bottom: 0;
   padding: 50px 50px;
+  position: absolute;
 }
 .footer ul {
   list-style: none;
@@ -14,4 +14,9 @@
 
 .footer ul li {
   cursor: pointer;
+}
+@media screen and (max-width: 968px) {
+  .footer {
+  position: static;
+}
 }
