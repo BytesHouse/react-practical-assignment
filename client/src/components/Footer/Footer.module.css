@@ -1,0 +1,17 @@
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 50px 50px;
+}
+.footer ul {
+  list-style: none;
+  width: 350px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer ul li {
+  cursor: pointer;
+}
