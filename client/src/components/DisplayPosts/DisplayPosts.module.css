@@ -20,3 +20,8 @@
     margin: 0 auto;
   }
 }
+
+.noResults {
+  text-align: center;
+  grid-column: 1/4;
+}

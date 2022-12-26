@@ -1,19 +1,14 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts } from "../../core/redux/features/allPosts/allPostsSlice";
+import { useSelector } from "react-redux";
 import { PostCard } from "../../ui-kit";
 import styles from "./DisplayPosts.module.css";
 
 const DisplayPosts = () => {
-  const { section } = styles;
-  const dispatch = useDispatch();
-  const { results, isLoading } = useSelector((state) => state.allPosts);
-  useEffect(() => {
-    dispatch(getAllPosts());
-  }, []);
+  const { section, noResults } = styles;
+  const { results } = useSelector((state) => state.allPosts);
+
   return (
     <section className={section}>
-      {results.length &&
+      {results.length ? (
         results.slice(0, 3).map((item) => {
           const { id, title, username, likes, dislikes, date, comments } = item;
           return (
@@ -27,7 +22,12 @@ const DisplayPosts = () => {
               comments={comments}
             />
           );
-        })}
+        })
+      ) : (
+        <div className={noResults}>
+          <h3>No results</h3>
+        </div>
+      )}
     </section>
   );
 };
