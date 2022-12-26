@@ -7,7 +7,9 @@ import {
 } from "../../assets/icons";
 import styles from "./PostCard.module.css";
 import lorem from "../../assets/images/lorem.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePost } from "../../core/redux/features/post/postSlice";
+import { getAllPosts } from "../../core/redux/features/allPosts/allPostsSlice";
 const PostCard = ({
   title,
   username,
@@ -16,6 +18,7 @@ const PostCard = ({
   date,
   comments,
   img = lorem,
+  id,
 }) => {
   const {
     post,
@@ -29,9 +32,14 @@ const PostCard = ({
     iconsWrapper,
   } = styles;
   const dt = new Date(+date);
+  const dispatch = useDispatch();
   const newDate = `${dt.getDate()} ${+dt.getMonth() + 1} ${dt.getFullYear()}`;
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+  const handlerDeletePost = async () => {
+    await dispatch(deletePost(id));
+    dispatch(getAllPosts());
+  };
+
   return (
     <div className={post}>
       <img className={image} src={img} alt="test" />
@@ -56,9 +64,19 @@ const PostCard = ({
         <div className={edit}>
           <div>Date: {newDate}</div>
           <div className={iconsWrapper}>
-            {user === username && <TrashIcon />}
-            {user === username && <EditIcon />}
-            <CommentIcon />
+            {user === username && (
+              <button onClick={() => handlerDeletePost()}>
+                <TrashIcon />
+              </button>
+            )}
+            {user === username && (
+              <button>
+                <EditIcon />
+              </button>
+            )}
+            <button>
+              <CommentIcon />
+            </button>
           </div>
         </div>
       </div>

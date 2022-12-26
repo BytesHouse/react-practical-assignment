@@ -48,4 +48,5 @@ const allPostsSlice = createSlice({
   },
 });
 
+export const { deletePostFromState } = allPostsSlice.actions;
 export default allPostsSlice.reducer;

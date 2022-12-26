@@ -20,6 +20,7 @@ const DisplayPosts = () => {
               dislikes={dislikes}
               date={date}
               comments={comments}
+              id={id}
             />
           );
         })

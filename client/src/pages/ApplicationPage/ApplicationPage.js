@@ -16,9 +16,9 @@ import { Loading } from "../../assets/icons";
 
 const ApplicationPage = () => {
   const dispatch = useDispatch();
-  const { dashboard, wrap } = styles;
+  const { dashboard, wrap, loading } = styles;
   const { isVisible } = useSelector((state) => state.popup);
-  const { isLoading } = useSelector((state) => state.allPosts);
+  const { isLoading, results } = useSelector((state) => state.allPosts);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,13 @@ const ApplicationPage = () => {
       <Header />
       <div className={wrap}>
         <SearchSection />
-        {isLoading ? <Loading /> : <DisplayPosts />}
+        {isLoading ? (
+          <div className={loading}>
+            <Loading />
+          </div>
+        ) : (
+          <DisplayPosts />
+        )}
       </div>
       <Footer />
       {isVisible && <Popup />}

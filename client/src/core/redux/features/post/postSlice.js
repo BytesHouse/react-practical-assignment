@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { get, post } from "../../../../api/fetchRequests/baseRequest";
+import {
+  get,
+  post,
+  put,
+  remove,
+} from "../../../../api/fetchRequests/baseRequest";
 import { getUserFromLocalStorage } from "../../../lib/utils/localStorage";
 import { toast } from "react-toastify";
 
@@ -20,6 +25,16 @@ export const createPost = createAsyncThunk("post/createPost", async (body) => {
   return result;
 });
 
+export const deletePost = createAsyncThunk("post/deletePost", async (id) => {
+  const result = await remove(`post/${id}`);
+  return result;
+});
+
+export const addLike = createAsyncThunk("post/addLike", async (id) => {
+  const result = await put(`post/${id}`, { likes: getUserFromLocalStorage() }); // to be continue
+  return result;
+});
+
 const postSlice = createSlice({
   name: "post",
   initialState,
@@ -33,6 +48,16 @@ const postSlice = createSlice({
       toast.success("Post has been created");
     });
     builder.addCase(createPost.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(deletePost.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deletePost.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+      toast.warning("Post has been deleted");
+    });
+    builder.addCase(deletePost.rejected, (state) => {
       state.isLoading = false;
     });
   },

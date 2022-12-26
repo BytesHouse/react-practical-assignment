@@ -4,6 +4,7 @@ import styles from "./Popup.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { togglePopup } from "../../core/redux/features/popup/popupSlice";
 import { createPost } from "../../core/redux/features/post/postSlice";
+import { getAllPosts } from "../../core/redux/features/allPosts/allPostsSlice";
 import { getUserFromLocalStorage } from "../../core/lib/utils/localStorage";
 const initialState = {
   title: "",
@@ -11,20 +12,24 @@ const initialState = {
   username: getUserFromLocalStorage(),
 };
 const Popup = () => {
-  const { blur, btnWrap } = styles;
+  const dispatch = useDispatch();
   const [post, setPost] = useState(initialState);
-  const handleSubmit = () => {
+  const { blur, btnWrap } = styles;
+  const { isVisible } = useSelector((state) => state.popup);
+
+  const handleSubmit = async () => {
     const { title, username } = post;
-    dispatch(createPost({ title, username }));
+    await dispatch(createPost({ title, username }));
+    dispatch(getAllPosts());
     dispatch(togglePopup(isVisible));
   };
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setPost({ ...post, [name]: value });
   };
-  const { isVisible } = useSelector((state) => state.popup);
-  const dispatch = useDispatch();
+
   return (
     <div className={blur}>
       <div>
