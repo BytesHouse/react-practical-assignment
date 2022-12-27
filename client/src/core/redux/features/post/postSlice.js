@@ -22,7 +22,7 @@ const initialState = {
 export const uploadImage = createAsyncThunk(
   "post/uploadImage",
   async (id, body) => {
-    const result = await post(`post/${id}/picture`, JSON.stringify(body));
+    const result = await post(`post/${id}/picture`, body);
     return result;
   }
 );

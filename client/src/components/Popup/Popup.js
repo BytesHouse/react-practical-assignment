@@ -9,6 +9,7 @@ import {
 } from "../../core/redux/features/post/postSlice";
 import { getAllPosts } from "../../core/redux/features/allPosts/allPostsSlice";
 import { getUserFromLocalStorage } from "../../core/lib/utils/localStorage";
+import { post } from "../../api/fetchRequests/baseRequest";
 const initialState = {
   title: "",
   image: "",
@@ -16,22 +17,20 @@ const initialState = {
 };
 const Popup = () => {
   const dispatch = useDispatch();
-  const [post, setPost] = useState(initialState);
+  const [postState, setPost] = useState(initialState);
+  const [file, setFile] = useState(null);
   const { blur, btnWrap } = styles;
   const { isVisible } = useSelector((state) => state.popup);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let reader = new FileReader();
-    reader.readAsDataURL(e.target[1].files[0]);
-    const data = new FormData(e.target.form);
-    const { title, username } = post;
-    await data.append("picture", reader.result);
-    const result = await dispatch(createPost({ title, username }, data));
-    const imageId = result.payload.result.id;
-    console.log(data);
+    const data = new FormData();
+    const { title, username } = postState;
+    await data.append("picture", file);
 
-    dispatch(uploadImage(imageId, data));
+    const result = await dispatch(createPost({ title, username }));
+    const imageId = result.payload.result.id;
+    await post(`post/${imageId}/picture`, data);
     dispatch(getAllPosts());
     dispatch(togglePopup(isVisible));
   };
@@ -39,7 +38,13 @@ const Popup = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setPost({ ...post, [name]: value });
+    setPost({ ...postState, [name]: value });
+  };
+
+  const handlerUpload = (e) => {
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
   };
 
   return (
@@ -51,7 +56,7 @@ const Popup = () => {
             text="Image:"
             name="image"
             type="file"
-            onChange={handleChange}
+            onChange={handlerUpload}
             accept="image/*"
           />
           <div className={btnWrap}>
