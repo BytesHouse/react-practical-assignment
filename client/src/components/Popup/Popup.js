@@ -3,7 +3,10 @@ import { PrimaryButton, StyledInput } from "../../ui-kit";
 import styles from "./Popup.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { togglePopup } from "../../core/redux/features/popup/popupSlice";
-import { createPost } from "../../core/redux/features/post/postSlice";
+import {
+  createPost,
+  uploadImage,
+} from "../../core/redux/features/post/postSlice";
 import { getAllPosts } from "../../core/redux/features/allPosts/allPostsSlice";
 import { getUserFromLocalStorage } from "../../core/lib/utils/localStorage";
 const initialState = {
@@ -17,9 +20,18 @@ const Popup = () => {
   const { blur, btnWrap } = styles;
   const { isVisible } = useSelector((state) => state.popup);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target[1].files[0]);
+    const data = new FormData(e.target.form);
     const { title, username } = post;
-    await dispatch(createPost({ title, username }));
+    await data.append("picture", reader.result);
+    const result = await dispatch(createPost({ title, username }, data));
+    const imageId = result.payload.result.id;
+    console.log(data);
+
+    dispatch(uploadImage(imageId, data));
     dispatch(getAllPosts());
     dispatch(togglePopup(isVisible));
   };
@@ -33,22 +45,23 @@ const Popup = () => {
   return (
     <div className={blur}>
       <div>
-        Title:
-        <StyledInput name="title" onChange={handleChange} />
-        Image:
-        <StyledInput
-          name="image"
-          type="file"
-          onChange={handleChange}
-          accept="image/*"
-        />
-        <div className={btnWrap}>
-          <PrimaryButton
-            onClick={() => dispatch(togglePopup(isVisible))}
-            text="Cancel"
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <StyledInput text="Title:" name="title" onChange={handleChange} />
+          <StyledInput
+            text="Image:"
+            name="image"
+            type="file"
+            onChange={handleChange}
+            accept="image/*"
           />
-          <PrimaryButton onClick={() => handleSubmit()} text="Create post" />
-        </div>
+          <div className={btnWrap}>
+            <PrimaryButton
+              onClick={() => dispatch(togglePopup(isVisible))}
+              text="Cancel"
+            />
+            <PrimaryButton type="submit" text="Create post" />
+          </div>
+        </form>
       </div>
     </div>
   );

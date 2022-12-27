@@ -11,6 +11,10 @@ const request = async (url, data, token) => {
       ? {
           "Content-Type": "application/json;charset=utf-8",
         }
+      : typeof data.body === "object"
+      ? {
+          "Content-Type": "multipart/form-data",
+        }
       : {};
   const response = await fetch(url, {
     ...data,

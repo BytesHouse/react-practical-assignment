@@ -19,11 +19,20 @@ const initialState = {
   date: null,
   comments: [],
 };
-
-export const createPost = createAsyncThunk("post/createPost", async (body) => {
-  const result = await post("post/", JSON.stringify(body));
-  return result;
-});
+export const uploadImage = createAsyncThunk(
+  "post/uploadImage",
+  async (id, body) => {
+    const result = await post(`post/${id}/picture`, JSON.stringify(body));
+    return result;
+  }
+);
+export const createPost = createAsyncThunk(
+  "post/createPost",
+  async (body, formData) => {
+    const result = await post("post/", JSON.stringify(body));
+    return result;
+  }
+);
 
 export const deletePost = createAsyncThunk("post/deletePost", async (id) => {
   const result = await remove(`post/${id}`);
@@ -58,6 +67,15 @@ const postSlice = createSlice({
       toast.warning("Post has been deleted");
     });
     builder.addCase(deletePost.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(uploadImage.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(uploadImage.fulfilled, (state, { payload }) => {
+      state.isLoading = false;
+    });
+    builder.addCase(uploadImage.rejected, (state) => {
       state.isLoading = false;
     });
   },
